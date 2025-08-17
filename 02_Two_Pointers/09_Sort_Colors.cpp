@@ -1,0 +1,40 @@
+// https://leetcode.com/problems/sort-colors/
+
+// DUTCH NATIONAL FLAG ALGORITHM
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Brute -> Merge Sort: Time -> O(N * log(N)), Space -> O(N)
+
+// Better -> Use the 3 variable Counters: Count0, Count1, Count2
+
+// Optimal -> Dutch National Flag Algorithm:
+// [0, low - 1]     ->  0   ->  Extreme Left
+// [low, mid - 1]   ->  1   
+// [mid, high]      ->  Unsorted Elements (0 / 1 / 2)
+// [high + 1, n - 1]->  2   ->  Extreme Right
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int n = nums.size();
+        int low = 0, mid = 0, high = n-1;
+        
+        while (mid <= high) {
+            if (nums[mid] == 0) {
+                swap(nums[low], nums[mid]);
+                low++;
+                mid++;
+            }
+            else if (nums[mid] == 1) {
+                mid++;
+            }
+            else {
+                swap(nums[mid], nums[high]);
+                high--;
+            }
+        }
+    }
+};
+// Time -> O(N)
+// Space -> O(1)
